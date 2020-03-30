@@ -132,10 +132,15 @@
       },
       onEachFeature: function (feature, layer) {
         if (feature.properties) {
-          var content = "Provinsi : " + feature.properties.PROV + "<br>" +
-            "Kasus Positif : " + feature.properties.Kasus_Positif + "<br>" +
-            "Kasus Sembuh : " + feature.properties.Kasus_Sembuh + "<br>" +
-            "Kasus Meninggal : " + feature.properties.Kasus_Meninggal;
+          var content = "<div class='card'>" +
+          "<div class='card-header alert-success text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
+          "<div class='card-body p-0'>" +
+            "<table class='table table-responsive-sm m-0'>" +
+              "<tr><th><i class='far fa-sad-tear'></i> Kasus Positif</th><th>" + feature.properties.Kasus_Positif + "</th></tr>" +
+              "<tr class='text-success'><th><i class='far fa-smile'></i> Kasus Sembuh</th><th>" + feature.properties.Kasus_Sembuh + "</th></tr>" +
+              "<tr class='text-danger'><th><i class='far fa-frown'></i> Kasus Meninggal</th><th>" + feature.properties.Kasus_Meninggal + "</th></tr>" +
+            "</table>" +
+          "</div>";
           layer.on({
             click: function (e) {
               kasusrendah.bindPopup(content);
@@ -165,10 +170,15 @@
       },
       onEachFeature: function (feature, layer) {
         if (feature.properties) {
-          var content = "Provinsi : " + feature.properties.PROV + "<br>" +
-            "Kasus Positif : " + feature.properties.Kasus_Positif + "<br>" +
-            "Kasus Sembuh : " + feature.properties.Kasus_Sembuh + "<br>" +
-            "Kasus Meninggal : " + feature.properties.Kasus_Meninggal;
+          var content = "<div class='card'>" +
+          "<div class='card-header alert-warning text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
+          "<div class='card-body p-0'>" +
+            "<table class='table table-responsive-sm m-0'>" +
+              "<tr><th><i class='far fa-sad-tear'></i> Kasus Positif</th><th>" + feature.properties.Kasus_Positif + "</th></tr>" +
+              "<tr class='text-success'><th><i class='far fa-smile'></i> Kasus Sembuh</th><th>" + feature.properties.Kasus_Sembuh + "</th></tr>" +
+              "<tr class='text-danger'><th><i class='far fa-frown'></i> Kasus Meninggal</th><th>" + feature.properties.Kasus_Meninggal + "</th></tr>" +
+            "</table>" +
+          "</div>";
           layer.on({
             click: function (e) {
               kasussedang.bindPopup(content);
@@ -197,10 +207,15 @@
       },
       onEachFeature: function (feature, layer) {
         if (feature.properties) {
-          var content = "Provinsi : " + feature.properties.PROV + "<br>" +
-            "Kasus Positif : " + feature.properties.Kasus_Positif + "<br>" +
-            "Kasus Sembuh : " + feature.properties.Kasus_Sembuh + "<br>" +
-            "Kasus Meninggal : " + feature.properties.Kasus_Meninggal;
+          var content = "<div class='card'>" +
+          "<div class='card-header alert-danger text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
+          "<div class='card-body p-0'>" +
+            "<table class='table table-responsive-sm m-0'>" +
+              "<tr><th><i class='far fa-sad-tear'></i> Kasus Positif</th><th>" + feature.properties.Kasus_Positif + "</th></tr>" +
+              "<tr class='text-success'><th><i class='far fa-smile'></i> Kasus Sembuh</th><th>" + feature.properties.Kasus_Sembuh + "</th></tr>" +
+              "<tr class='text-danger'><th><i class='far fa-frown'></i> Kasus Meninggal</th><th>" + feature.properties.Kasus_Meninggal + "</th></tr>" +
+            "</table>" +
+          "</div>";
           layer.on({
             click: function (e) {
               kasustinggi.bindPopup(content);
