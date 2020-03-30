@@ -8,7 +8,7 @@
   <meta name="author" content="unsorry">
 
   <link href="https://unsorry.net/assets-date/images/favicon.png" rel="shortcut icon" type="image/png">
-  <title>Data COVID-19</title>
+  <title>Polygon Provinsi</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -71,7 +71,8 @@
         </div>
         <div class="modal-body">
           <div class="card alert-dark p-3">
-            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_polygon.geojson" target="_blank">provinsi_polygon.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson_polygon.php" target="_blank">geojson_polygon.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.
+            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_polygon.geojson" target="_blank">provinsi_polygon.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson_polygon.php" target="_blank">geojson_polygon.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.<br>
+            Klasifikasi jumlah kasus berdasarkan klasifikasi dari BNPB.
             <hr>
             <a href="https://github.com/anshori/geojsoncombine-corona" type="button" class="btn btn-primary btn-sm btn-block" target="_blank">Source Code</a>
           </div>
@@ -108,22 +109,31 @@
 
     var kasuscorona = L.geoJson(null, {
       style: function (feature) {
-        if (feature.properties.Kasus_Positif < 10) {
+        if (feature.properties.Kasus_Positif <= 5) {
           return {
             opacity: 1,
             color: 'black',
             weight: 1.0,
-            fillOpacity: 0.7,
-            fillColor: 'rgb(114,175,38)'
+            fillOpacity: 0.8,
+            fillColor: 'rgb(254, 242, 0)'
           }
         }
-        else if (feature.properties.Kasus_Positif >= 10 && feature.properties.Kasus_Positif <= 50) {
+        else if (feature.properties.Kasus_Positif >= 6 && feature.properties.Kasus_Positif <= 19) {
           return {
             opacity: 1,
             color: 'black',
             weight: 1.0,
-            fillOpacity: 0.7,
-            fillColor: 'rgb(243,149,47)'
+            fillOpacity: 0.8,
+            fillColor: 'rgb(195, 187, 34)'
+          }
+        }
+        else if (feature.properties.Kasus_Positif >= 20 && feature.properties.Kasus_Positif <= 50) {
+          return {
+            opacity: 1,
+            color: 'black',
+            weight: 1.0,
+            fillOpacity: 0.8,
+            fillColor: 'rgb(244, 132, 32)'
           }
         }
         else if (feature.properties.Kasus_Positif > 50) {
@@ -131,8 +141,8 @@
             opacity: 1,
             color: 'black',
             weight: 1.0,
-            fillOpacity: 0.7,
-            fillColor: 'rgb(212,62,42)'
+            fillOpacity: 0.8,
+            fillColor: 'rgb(221, 77, 87)'
           }
         }
         else {
@@ -140,8 +150,8 @@
             opacity: 1,
             color: 'black',
             weight: 1.0,
-            fillOpacity: 0.7,
-            fillColor: 'rgb(128,128,128)'
+            fillOpacity: 0.8,
+            fillColor: 'rgb(37, 150, 210)'
           }
         }
       },
@@ -163,9 +173,9 @@
               color: "gray",
               opacity: 1,
               fillColor: "#00FFFF",
-              fillOpacity: 0.7,
+              fillOpacity: 0.8,
             });
-            kasuscorona.bindTooltip(feature.properties.PROV + "<br>Positif: " + feature.properties.Kasus_Positif, {sticky: true});
+            kasuscorona.bindTooltip("Prov. " + feature.properties.PROV + "<br>Jumlah kasus: " + feature.properties.Kasus_Positif, {sticky: true});
           },
           mouseout: function (e) {
             kasuscorona.resetStyle(e.target);
@@ -191,7 +201,7 @@
       return this._div;
     };
     legend.update = function () {
-      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(114,175,38);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus Positif < 10<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(243,149,47);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus Positif 10 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(212,62,42);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus Positif > 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(128,128,128);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Tidak ada data<hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
+      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(254, 242, 0, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(195, 187, 34, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(244, 132, 32, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(221, 77, 87, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus >50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(37, 150, 210, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Tidak ada kasus<hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
     };
     legend.addTo(map);
   </script>
