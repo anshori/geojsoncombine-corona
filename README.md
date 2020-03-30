@@ -12,4 +12,4 @@ Klasifikasi kasus berdasarkan pada klasifikasi dari BNPB.
 
 `Centroid Provinsi:` [https://www.unsorry.net/git/geojsoncombine-corona](https://www.unsorry.net/git/geojsoncombine-corona)
 
-`Polygon Provinsi:` [https://www.unsorry.net/git/geojsoncombine-corona/polygonprovinsi.html](https://www.unsorry.net/git/geojsoncombine-corona/polygonprovinsi.html)
+`Polygon Provinsi:` [https://www.unsorry.net/git/geojsoncombine-corona/dashboardpolygonprovinsi.php](https://www.unsorry.net/git/geojsoncombine-corona/dashboardpolygonprovinsi.php)

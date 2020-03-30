@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+  <link rel="stylesheet" href="assets/lib/Leaflet.ExtraMarkers/css/leaflet.extra-markers.min.css" />
   <style>
     html, body, .container-fluid, #map {
       width: 100%;
@@ -24,6 +24,22 @@
     .container-fluid {
       padding-top: 55px;
     }
+    .row-map {
+      width: 100%;
+      height: 85%;
+      margin: 0px;
+      padding: 0px;
+    }
+    .row-info {
+      width: 100%;
+      height: 15%;
+      margin: 0px;
+      padding: 0px;
+    }
+    .col-sm {
+      padding: 0px;
+    }
+    
     .info {
       padding: 6px 8px;
       font: 14px/16px Arial, Helvetica, sans-serif;
@@ -43,7 +59,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+  <script src="assets/lib/Leaflet.ExtraMarkers/js/leaflet.extra-markers.min.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt"></i> Kasus Covid-19</a>
@@ -90,7 +106,53 @@
   </div>
 
   <div class="container-fluid">
-    <div id="map"></div>
+    <div class="row row-map">
+      <div class="col-sm">
+        <div id="map"></div>
+      </div>
+    </div>
+    <div class="row row-info">
+      <?php
+        $dataIndonesia = file_get_contents("https://api.kawalcorona.com/indonesia/");
+        $kasusIndonesia = json_decode($dataIndonesia);
+
+        foreach($kasusIndonesia as $item){
+      ?>
+      <div class="col-sm-4 text-center text-warning bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-sad-tear fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL POSITIF</strong></h5>
+            <h5><?php echo $item->positif; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 text-center text-success bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-smile fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL SEMBUH</strong></h5>
+            <h5><?php echo $item->sembuh; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 text-center text-danger bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-frown fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL MENINGGAL</strong></h5>
+            <h5><?php echo $item->meninggal; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
+    </div>
   </div>
   
   <script>

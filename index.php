@@ -24,6 +24,22 @@
     .container-fluid {
       padding-top: 55px;
     }
+    .row-map {
+      width: 100%;
+      height: 85%;
+      margin: 0px;
+      padding: 0px;
+    }
+    .row-info {
+      width: 100%;
+      height: 15%;
+      margin: 0px;
+      padding: 0px;
+    }
+    .col-sm {
+      padding: 0px;
+    }
+    
     .info {
       padding: 6px 8px;
       font: 14px/16px Arial, Helvetica, sans-serif;
@@ -90,7 +106,53 @@
   </div>
 
   <div class="container-fluid">
-    <div id="map"></div>
+    <div class="row row-map">
+      <div class="col-sm">
+        <div id="map"></div>
+      </div>
+    </div>
+    <div class="row row-info">
+      <?php
+        $dataIndonesia = file_get_contents("https://api.kawalcorona.com/indonesia/");
+        $kasusIndonesia = json_decode($dataIndonesia);
+
+        foreach($kasusIndonesia as $item){
+      ?>
+      <div class="col-sm-4 text-center text-warning bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-sad-tear fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL POSITIF</strong></h5>
+            <h5><?php echo $item->positif; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 text-center text-success bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-smile fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL SEMBUH</strong></h5>
+            <h5><?php echo $item->sembuh; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 text-center text-danger bg-dark">
+        <div class="row p-3">
+          <div class="col-3">
+            <i class="far fa-frown fa-4x"></i>
+          </div>
+          <div class="col text-left">
+            <h5><strong>TOTAL MENINGGAL</strong></h5>
+            <h5><?php echo $item->meninggal; ?> orang</h5>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
+    </div>
   </div>
   
   <script>
@@ -156,7 +218,7 @@
     var kasusagakrendah = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
         if (feature.properties) {
-          var darkgreenMarker = L.ExtraMarkers.icon({
+          var darkblueMarker = L.ExtraMarkers.icon({
             icon: 'fa-number',
             number: feature.properties.Kasus_Positif,
             markerColor: 'blue-dark',
@@ -165,7 +227,7 @@
             tooltipAnchor: [15, -25]
           });
           return L.marker(latlng, {
-            icon: darkgreenMarker,
+            icon: darkblueMarker,
             riseOnHover: true
           });
         }
@@ -173,7 +235,7 @@
       onEachFeature: function (feature, layer) {
         if (feature.properties) {
           var content = "<div class='card'>" +
-          "<div class='card-header alert-warning text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
+          "<div class='card-header alert-primary text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
           "<div class='card-body p-0'>" +
             "<table class='table table-responsive-sm m-0'>" +
               "<tr><th><i class='far fa-sad-tear'></i> Kasus Positif</th><th>" + feature.properties.Kasus_Positif + "</th></tr>" +
