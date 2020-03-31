@@ -28,15 +28,15 @@ _Screenshot_ Peta Web COVID-19
 
 ![Centroid Provinsi](Screenshot-Centroid-Provinsi.png)
 
+![Circle Provinsi](Screenshot-Circle-Provinsi.png)
+
 ![Polygon Provinsi](Screenshot-Polygon-Provinsi.png)
 
 
 ##
 **Demo**
 
-`Centroid Provinsi:` [https://www.unsorry.net/git/geojsoncombine-corona](https://www.unsorry.net/git/geojsoncombine-corona)
-
-`Polygon Provinsi:` [https://www.unsorry.net/git/geojsoncombine-corona/dashboardpolygonprovinsi.php](https://www.unsorry.net/git/geojsoncombine-corona/dashboardpolygonprovinsi.php)
+[https://www.unsorry.net/git/geojsoncombine-corona](https://www.unsorry.net/git/geojsoncombine-corona)
 
 ##
 >unsorry@2020
