@@ -177,7 +177,7 @@
             icon: 'fa-number',
             number: feature.properties.Kasus_Positif,
             markerColor: 'green-light',
-            shape: 'circle',
+            shape: 'square',
             prefix: 'fa',
             tooltipAnchor: [15, -25]
           });
@@ -225,7 +225,7 @@
             icon: 'fa-number',
             number: feature.properties.Kasus_Positif,
             markerColor: 'blue-dark',
-            shape: 'circle',
+            shape: 'square',
             prefix: 'fa',
             tooltipAnchor: [15, -25]
           });
@@ -272,7 +272,7 @@
             icon: 'fa-number',
             number: feature.properties.Kasus_Positif,
             markerColor: 'orange',
-            shape: 'circle',
+            shape: 'square',
             prefix: 'fa',
             tooltipAnchor: [15, -25]
           });
@@ -319,7 +319,7 @@
             icon: 'fa-number',
             number: feature.properties.Kasus_Positif,
             markerColor: 'red',
-            shape: 'circle',
+            shape: 'square',
             prefix: 'fa',
             tooltipAnchor: [15, -25]
           });
