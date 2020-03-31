@@ -13,46 +13,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
-  <link rel="stylesheet" href="assets/lib/Leaflet.ExtraMarkers/css/leaflet.extra-markers.min.css" />
-  <style>
-    html, body, .container-fluid, #map {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
-    .container-fluid {
-      padding-top: 55px;
-    }
-    .row-map {
-      width: 100%;
-      height: 85%;
-      margin: 0px;
-      padding: 0px;
-    }
-    .row-info {
-      width: 100%;
-      height: 15%;
-      margin: 0px;
-      padding: 0px;
-    }
-    .col-sm {
-      padding: 0px;
-    }
-    
-    .info {
-      padding: 6px 8px;
-      font: 14px/16px Arial, Helvetica, sans-serif;
-      background: white;
-      background: rgba(255,255,255,0.8);
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      border-radius: 5px;
-    }
-    .info h5 {
-      margin: 0 0 5px;
-      color: #000;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/lib/Leaflet.ExtraMarkers/css/leaflet.extra-markers.min.css">
+  <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script></script>
@@ -69,6 +31,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboardcircleprovinsi.php"><i class="fas fa-circle"></i></i> Circle Provinsi</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="dashboardpolygonprovinsi.php"><i class="fas fa-map"></i> Polygon Provinsi</a>
         </li>
@@ -366,7 +331,7 @@
       return this._div;
     };
     legend.update = function () {
-      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(103, 171, 57);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(24, 85, 104);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(238, 138, 25);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(156, 39, 43);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus >50<hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
+      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(103, 171, 57);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="11" y="13.5" font-family="Verdana" font-size="14" fill="white">3</text></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(24, 85, 104);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">11</text></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(238, 138, 25);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">30</text></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(156, 39, 43);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">69</text></svg> Kasus >50<hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
     };
     legend.addTo(map);
   </script>

@@ -1,0 +1,37 @@
+html, body, .container-fluid, #map {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.container-fluid {
+  padding-top: 55px;
+}
+.row-map {
+  width: 100%;
+  height: 85%;
+  margin: 0px;
+  padding: 0px;
+}
+.row-info {
+  width: 100%;
+  height: 15%;
+  margin: 0px;
+  padding: 0px;
+}
+.col-sm {
+  padding: 0px;
+}
+
+.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+.info h5 {
+  margin: 0 0 5px;
+  color: #000;
+}

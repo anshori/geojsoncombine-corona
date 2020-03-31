@@ -8,9 +8,10 @@
   <meta name="author" content="unsorry">
 
   <link href="https://unsorry.net/assets-date/images/favicon.png" rel="shortcut icon" type="image/png">
-  <title>Polygon Provinsi</title>
+  <title>Circle Provinsi</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
   <link rel="stylesheet" href="assets/app.css">
 </head>
@@ -32,7 +33,7 @@
           <a class="nav-link" href="index.php"><i class="fas fa-map-marked-alt"></i> Centroid Provinsi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="dashboardcircleprovinsi.php"><i class="fas fa-circle"></i></i> Circle Provinsi</a>
+          <a class="nav-link" href="dashboardpolygonprovinsi.php"><i class="fas fa-map"></i> Polygon Provinsi</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i> Info</a>
@@ -52,7 +53,7 @@
         </div>
         <div class="modal-body">
           <div class="card alert-dark p-3">
-            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_polygon.geojson" target="_blank">provinsi_polygon.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson_polygon.php" target="_blank">geojson_polygon.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.<br>
+            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_point.geojson" target="_blank">provinsi_point.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson.php" target="_blank">geojson.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.<br>
             Klasifikasi jumlah kasus berdasarkan klasifikasi dari BNPB.
             <hr>
             <a href="https://github.com/anshori/geojsoncombine-corona" type="button" class="btn btn-primary btn-sm btn-block" target="_blank"><i class="fab fa-github"></i> Source Code</a>
@@ -132,95 +133,46 @@
     });
     basemap.addTo(map);
 
-    /* GeoJSON Polygon */
-
-    var kasuscorona = L.geoJson(null, {
-      style: function (feature) {
-        if (feature.properties.Kasus_Positif <= 5) {
-          return {
-            opacity: 1,
-            color: 'gray',
-            weight: 1.0,
-            fillOpacity: 0.8,
-            fillColor: 'rgb(254, 242, 0)'
-          }
-        }
-        else if (feature.properties.Kasus_Positif >= 6 && feature.properties.Kasus_Positif <= 19) {
-          return {
-            opacity: 1,
-            color: 'gray',
-            weight: 1.0,
-            fillOpacity: 0.8,
-            fillColor: 'rgb(195, 187, 34)'
-          }
-        }
-        else if (feature.properties.Kasus_Positif >= 20 && feature.properties.Kasus_Positif <= 50) {
-          return {
-            opacity: 1,
-            color: 'gray',
-            weight: 1.0,
-            fillOpacity: 0.8,
-            fillColor: 'rgb(244, 132, 32)'
-          }
-        }
-        else if (feature.properties.Kasus_Positif > 50) {
-          return {
-            opacity: 1,
-            color: 'gray',
-            weight: 1.0,
-            fillOpacity: 0.8,
-            fillColor: 'rgb(221, 77, 87)'
-          }
-        }
-        else {
-          return {
-            opacity: 1,
-            color: 'gray',
-            weight: 1.0,
-            fillOpacity: 0.8,
-            fillColor: 'rgb(37, 150, 210)'
-          }
-        }
+    var kasusrendah = L.geoJson(null, {
+      pointToLayer: function (feature, latlng) {
+        var geojsonMarkerOptions = {
+          radius: feature.properties.Kasus_Positif/10,
+          fillColor: "red",
+          color: "gray",
+          weight: 0.7,
+          opacity: 1,
+          fillOpacity: 0.8
+        };
+        return L.circleMarker(latlng, geojsonMarkerOptions);
       },
       onEachFeature: function (feature, layer) {
-        var content = "<div class='card'>" +
-          "<div class='card-header alert-primary text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
+        if (feature.properties) {
+          var content = "<div class='card'>" +
+          "<div class='card-header alert-success text-center p-1'><strong>Provinsi<br>" + feature.properties.PROV + "</strong></div>" +
           "<div class='card-body p-0'>" +
             "<table class='table table-responsive-sm m-0'>" +
               "<tr><th><i class='far fa-sad-tear'></i> Kasus Positif</th><th>" + feature.properties.Kasus_Positif + "</th></tr>" +
               "<tr class='text-success'><th><i class='far fa-smile'></i> Kasus Sembuh</th><th>" + feature.properties.Kasus_Sembuh + "</th></tr>" +
               "<tr class='text-danger'><th><i class='far fa-frown'></i> Kasus Meninggal</th><th>" + feature.properties.Kasus_Meninggal + "</th></tr>" +
             "</table>" +
-          "</div>";          
-        layer.on({
-          mouseover: function (e) {
-            var layer = e.target;
-            layer.setStyle({
-              weight: 1,
-              color: "gray",
-              opacity: 1,
-              fillColor: "#00FFFF",
-              fillOpacity: 0.8,
-            });
-            kasuscorona.bindTooltip("Prov. " + feature.properties.PROV + "<br>Jumlah kasus: " + feature.properties.Kasus_Positif, {sticky: true});
-          },
-          mouseout: function (e) {
-            kasuscorona.resetStyle(e.target);
-            map.closePopup();
-          },
-          click: function (e) {
-            kasuscorona.bindPopup(content);
-          }
-        });
+          "</div>";
+          layer.on({
+            click: function (e) {
+              kasusrendah.bindPopup(content);
+            },
+            mouseover: function (e) {
+              kasusrendah.bindTooltip("Prov. " + feature.properties.PROV + "<br>Kasus Positif: " + feature.properties.Kasus_Positif, {sticky: true});
+            }
+          });
+        }
       }
     });
-    $.getJSON("geojson_polygon.php", function (data) {
-      kasuscorona.addData(data);
-      map.addLayer(kasuscorona);
-      map.fitBounds(kasuscorona.getBounds());
-    });
+    $.getJSON("geojson.php", function (data) {
+      kasusrendah.addData(data);
+      map.addLayer(kasusrendah);
+      map.fitBounds(kasusrendah.getBounds());
+    });   
 
-    /* Legenda */
     var legend = new L.Control({position: 'bottomleft'});
     legend.onAdd = function (map) {
       this._div = L.DomUtil.create('div', 'info');
@@ -228,7 +180,7 @@
       return this._div;
     };
     legend.update = function () {
-      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(254, 242, 0, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(195, 187, 34, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(244, 132, 32, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(221, 77, 87, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus >50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(37, 150, 210, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Tidak ada kasus<hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
+      this._div.innerHTML = '<h5>Legenda</h5><table class="table table-sm"><tr><td><svg width="24" height="24"><circle cx="12" cy="12" r="10" stroke="gray" stroke-width="0.5" fill="rgb(255,0,0,0.8)" /></svg></td><td>Ukuran radius lingkaran<br>menunjukkan jumlah<br>kasus positif dalam<br>satuan pixel</td></tr></table><hr><small>Sumber data:<br><a href="https://kawalcorona.com" target="_blank">https://kawalcorona.com</a></small>'
     };
     legend.addTo(map);
   </script>

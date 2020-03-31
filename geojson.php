@@ -15,7 +15,7 @@
     	} else {}
 		}
 	}
-	$combined_output = json_encode($pointProvinsi); 
+	$combined_output = json_encode($pointProvinsi, JSON_NUMERIC_CHECK); 
 
 	header("Access-Control-Allow-Origin: *");
 	header('Content-Type: application/json');
