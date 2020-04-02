@@ -53,8 +53,7 @@
         </div>
         <div class="modal-body">
           <div class="card alert-dark p-3">
-            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_point.geojson" target="_blank">provinsi_point.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson.php" target="_blank">geojson.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.<br>
-            Klasifikasi jumlah kasus berdasarkan klasifikasi dari BNPB.
+            Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_point.geojson" target="_blank">provinsi_point.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson.php" target="_blank">geojson.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.
             <hr>
             <a href="https://github.com/anshori/geojsoncombine-corona" type="button" class="btn btn-primary btn-sm btn-block" target="_blank"><i class="fab fa-github"></i> Source Code</a>
           </div>
@@ -133,7 +132,7 @@
     });
     basemap.addTo(map);
 
-    var kasusrendah = L.geoJson(null, {
+    var kasuspositif = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
         var geojsonMarkerOptions = {
           radius: feature.properties.Kasus_Positif/10,
@@ -158,19 +157,19 @@
           "</div>";
           layer.on({
             click: function (e) {
-              kasusrendah.bindPopup(content);
+              kasuspositif.bindPopup(content);
             },
             mouseover: function (e) {
-              kasusrendah.bindTooltip("Prov. " + feature.properties.PROV + "<br>Kasus Positif: " + feature.properties.Kasus_Positif, {sticky: true});
+              kasuspositif.bindTooltip("Prov. " + feature.properties.PROV + "<br>Kasus Positif: " + feature.properties.Kasus_Positif, {sticky: true});
             }
           });
         }
       }
     });
     $.getJSON("geojson.php", function (data) {
-      kasusrendah.addData(data);
-      map.addLayer(kasusrendah);
-      map.fitBounds(kasusrendah.getBounds());
+      kasuspositif.addData(data);
+      map.addLayer(kasuspositif);
+      map.fitBounds(kasuspositif.getBounds());
     });   
 
     var legend = new L.Control({position: 'bottomleft'});

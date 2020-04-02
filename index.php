@@ -56,7 +56,7 @@
         <div class="modal-body">
           <div class="card alert-dark p-3">
             Peta ini menggunakan data kasus COVID-19 dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> yang digabungkan dengan file <a href="data/provinsi_point.geojson" target="_blank">provinsi_point.geojson</a> menggunakan PHP menjadi geojson layer baru berupa <a href="geojson.php" target="_blank">geojson.php</a> yang secara otomatis ketika ada perubahan data dari <a href="https://api.kawalcorona.com/indonesia/provinsi/" target="_blank">https://api.kawalcorona.com/indonesia/provinsi/</a> maka info kasus positif, kasus sembuh, dan kasus meninggal akan otomatis berubah.<br>
-            Klasifikasi jumlah kasus berdasarkan klasifikasi dari BNPB.
+            Klasifikasi jumlah kasus mengikuti klasifikasi dari BNPB.
             <hr>
             <a href="https://github.com/anshori/geojsoncombine-corona" type="button" class="btn btn-primary btn-sm btn-block" target="_blank"><i class="fab fa-github"></i> Source Code</a>
           </div>
@@ -177,11 +177,6 @@
         return (feature.properties.Kasus_Positif <= 5);
       }
     });
-    $.getJSON("geojson.php", function (data) {
-      kasusrendah.addData(data);
-      map.addLayer(kasusrendah);
-      map.fitBounds(kasusrendah.getBounds());
-    });
 
     var kasusagakrendah = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
@@ -224,10 +219,6 @@
       filter: function(feature, layer) {
         return (feature.properties.Kasus_Positif >= 6 && feature.properties.Kasus_Positif <= 19);
       }
-    });
-    $.getJSON("geojson.php", function (data) {
-      kasusagakrendah.addData(data);
-      map.addLayer(kasusagakrendah);
     });
 
     var kasussedang = L.geoJson(null, {
@@ -272,10 +263,6 @@
         return (feature.properties.Kasus_Positif >= 20 && feature.properties.Kasus_Positif <= 50);
       }
     });
-    $.getJSON("geojson.php", function (data) {
-      kasussedang.addData(data);
-      map.addLayer(kasussedang);
-    });
 
     var kasustinggi = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
@@ -319,9 +306,15 @@
         return (feature.properties.Kasus_Positif > 50);
       }
     });
+
     $.getJSON("geojson.php", function (data) {
+      kasusrendah.addData(data);
+      kasusagakrendah.addData(data);
+      kasussedang.addData(data);
       kasustinggi.addData(data);
-      map.addLayer(kasustinggi);
+      var groupLayer = L.featureGroup([kasusrendah, kasusagakrendah, kasussedang, kasustinggi]);
+      groupLayer.addTo(map);
+      map.fitBounds(groupLayer.getBounds());
     });    
 
     var legend = new L.Control({position: 'bottomleft'});

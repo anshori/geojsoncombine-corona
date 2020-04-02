@@ -39,4 +39,9 @@ _Screenshot_ Peta Web COVID-19
 [https://www.unsorry.net/git/geojsoncombine-corona](https://www.unsorry.net/git/geojsoncombine-corona)
 
 ##
+**Repositori dengan sumber data dari https://bnpb-inacovid19.hub.arcgis.com/**
+
+[https://github.com/anshori/dashboard-covid19-arcgis-hub](https://github.com/anshori/dashboard-covid19-arcgis-hub)
+
+##
 >unsorry@2020
